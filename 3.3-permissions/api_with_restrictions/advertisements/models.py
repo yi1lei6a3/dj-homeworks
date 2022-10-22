@@ -7,24 +7,30 @@ class AdvertisementStatusChoices(models.TextChoices):
 
     OPEN = "OPEN", "Открыто"
     CLOSED = "CLOSED", "Закрыто"
+    DRAFT = "DRAFT", "Черновик"
 
 
 class Advertisement(models.Model):
     """Объявление."""
 
-    title = models.TextField()
-    description = models.TextField(default='')
+    title = models.TextField(verbose_name='Заголовок')
+    description = models.TextField(default='', verbose_name='Описание')
     status = models.TextField(
         choices=AdvertisementStatusChoices.choices,
-        default=AdvertisementStatusChoices.OPEN
+        default=AdvertisementStatusChoices.OPEN,
+        verbose_name='Cтатус'
     )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        verbose_name='Создатель'
     )
     created_at = models.DateTimeField(
-        auto_now_add=True
+        auto_now_add=True,
+        verbose_name='Cоздано'
     )
     updated_at = models.DateTimeField(
-        auto_now=True
+        auto_now=True,
+        verbose_name='Обновленно'
     )
+    
